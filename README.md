@@ -6,7 +6,7 @@ A stack-based, concatenative language for wrapping existing code in composable t
 
 Built with Category Theory in mind, proven through hundreds of engineering tools at LinkedIn, and powering new kinds of Agentic architectures.
 
-**[Get Started](docs/getting-started.md)** | **[Why Forthic?](docs/why-forthic.md)** | **[Building Modules](docs/tutorials/building-modules.md)** | **[Examples](examples/)**
+**[Why Forthic?](docs/why-forthic.md)** | **[Get Started](docs/getting-started.md)** 
 
 ---
 

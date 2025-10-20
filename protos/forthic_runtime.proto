@@ -1,0 +1,151 @@
+syntax = "proto3";
+
+package forthic;
+
+// Service for executing Forthic words across runtime boundaries
+service ForthicRuntime {
+  // Execute a single word in the remote runtime
+  rpc ExecuteWord(ExecuteWordRequest) returns (ExecuteWordResponse);
+
+  // Execute a sequence of words in one remote call (batched execution optimization)
+  rpc ExecuteSequence(ExecuteSequenceRequest) returns (ExecuteSequenceResponse);
+
+  // Phase 3: Module discovery
+  // List available runtime-specific modules (excludes standard library)
+  rpc ListModules(ListModulesRequest) returns (ListModulesResponse);
+
+  // Get detailed information about a specific module
+  rpc GetModuleInfo(GetModuleInfoRequest) returns (GetModuleInfoResponse);
+}
+
+// Request to execute a word in a remote runtime
+message ExecuteWordRequest {
+  // Name of the word to execute
+  string word_name = 1;
+
+  // Stack state before execution (simple types only for Phase 1)
+  repeated StackValue stack = 2;
+}
+
+// Response from executing a word
+message ExecuteWordResponse {
+  // Stack state after execution
+  repeated StackValue result_stack = 1;
+
+  // Error information if execution failed
+  optional ErrorInfo error = 2;
+}
+
+// Request to execute a sequence of words in one batch
+// Optimization: Reduces RPC round-trips for consecutive remote words
+message ExecuteSequenceRequest {
+  // Names of words to execute in order
+  repeated string word_names = 1;
+
+  // Initial stack state before execution
+  repeated StackValue stack = 2;
+}
+
+// Response from executing a word sequence
+message ExecuteSequenceResponse {
+  // Stack state after executing all words
+  repeated StackValue result_stack = 1;
+
+  // Error information if any word failed
+  optional ErrorInfo error = 2;
+}
+
+// Represents a value on the Forthic stack
+// Phase 2: Supports all basic Forthic types including arrays and records
+message StackValue {
+  oneof value {
+    int64 int_value = 1;
+    string string_value = 2;
+    bool bool_value = 3;
+    double float_value = 4;
+    NullValue null_value = 5;
+    ArrayValue array_value = 6;
+    RecordValue record_value = 7;
+  }
+}
+
+// Represents null/None value
+message NullValue {
+  // Empty message, presence indicates null
+}
+
+// Represents an array (list) of values
+message ArrayValue {
+  repeated StackValue items = 1;
+}
+
+// Represents a record (object/dict) with string keys
+message RecordValue {
+  map<string, StackValue> fields = 1;
+}
+
+// Error information from remote execution
+message ErrorInfo {
+  // Error message
+  string message = 1;
+
+  // Runtime where error occurred
+  string runtime = 2;
+}
+
+// Phase 3: Module Discovery Messages
+
+// Request to list available runtime-specific modules
+message ListModulesRequest {
+  // Empty for now - future: could add filters
+}
+
+// Response with list of available modules
+message ListModulesResponse {
+  repeated ModuleSummary modules = 1;
+}
+
+// Summary information about a module
+message ModuleSummary {
+  // Module name
+  string name = 1;
+
+  // Brief description
+  string description = 2;
+
+  // Number of words in the module
+  int32 word_count = 3;
+
+  // Whether this is a runtime-specific module (e.g., pandas)
+  bool runtime_specific = 4;
+}
+
+// Request detailed information about a specific module
+message GetModuleInfoRequest {
+  // Name of the module
+  string module_name = 1;
+}
+
+// Response with detailed module information
+message GetModuleInfoResponse {
+  // Module name
+  string name = 1;
+
+  // Module description
+  string description = 2;
+
+  // List of words in the module
+  repeated WordInfo words = 3;
+}
+
+// Information about a single word
+message WordInfo {
+  // Word name
+  string name = 1;
+
+  // Stack effect notation (e.g., "( a b -- c )")
+  string stack_effect = 2;
+
+  // Description of what the word does
+  string description = 3;
+}

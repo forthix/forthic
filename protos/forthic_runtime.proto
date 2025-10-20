@@ -118,13 +118,28 @@ message ZonedDateTimeValue {
   string timezone = 2;  // IANA timezone name (e.g., "America/New_York")
 }
 
-// Error information from remote execution
+// Phase 9: Enhanced error information from remote execution
 message ErrorInfo {
   // Error message
   string message = 1;
 
-  // Runtime where error occurred
+  // Runtime where error occurred (e.g., "python", "ruby", "typescript")
   string runtime = 2;
+
+  // Stack trace from the remote runtime
+  repeated string stack_trace = 3;
+
+  // Error type/class name (e.g., "ValueError", "TypeError")
+  string error_type = 4;
+
+  // Word location where error occurred (if available)
+  optional string word_location = 5;
+
+  // Module name where error occurred (if available)
+  optional string module_name = 6;
+
+  // Additional context information
+  map<string, string> context = 7;
 }
 
 // Phase 3: Module Discovery Messages

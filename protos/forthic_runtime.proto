@@ -57,6 +57,7 @@ message ExecuteSequenceResponse {
 
 // Represents a value on the Forthic stack
 // Phase 2: Supports all basic Forthic types including arrays and records
+// Phase 8: Added temporal types (instant, plain_date, zoned_datetime)
 message StackValue {
   oneof value {
     int64 int_value = 1;
@@ -66,6 +67,9 @@ message StackValue {
     NullValue null_value = 5;
     ArrayValue array_value = 6;
     RecordValue record_value = 7;
+    InstantValue instant_value = 8;
+    PlainDateValue plain_date_value = 9;
+    ZonedDateTimeValue zoned_datetime_value = 10;
   }
 }
 
@@ -82,6 +86,36 @@ message ArrayValue {
 // Represents a record (object/dict) with string keys
 message RecordValue {
   map<string, StackValue> fields = 1;
+}
+
+// Phase 8: Temporal Types
+
+// Represents an instant in time (UTC timestamp)
+// Serialized as ISO 8601 string with timezone (e.g., "2025-01-15T10:30:00Z")
+// Maps to:
+//   - TypeScript: Temporal.Instant
+//   - Python: datetime.datetime (timezone-aware)
+message InstantValue {
+  string iso8601 = 1;
+}
+
+// Represents a calendar date without time or timezone
+// Serialized as ISO 8601 date string (e.g., "2025-01-15")
+// Maps to:
+//   - TypeScript: Temporal.PlainDate
+//   - Python: datetime.date
+message PlainDateValue {
+  string iso8601_date = 1;
+}
+
+// Represents a date-time with timezone
+// Serialized as ISO 8601 string with timezone (e.g., "2025-01-15T10:30:00-05:00[America/New_York]")
+// Maps to:
+//   - TypeScript: Temporal.ZonedDateTime
+//   - Python: datetime.datetime (timezone-aware with tzinfo)
+message ZonedDateTimeValue {
+  string iso8601 = 1;
+  string timezone = 2;  // IANA timezone name (e.g., "America/New_York")
 }
 
 // Error information from remote execution

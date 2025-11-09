@@ -1,12 +1,12 @@
 # Forthic
 
-**Bring your code to life through categorical composition.**
+**Wrap. Compose. Abstract**
 
 A stack-based, concatenative language for wrapping existing code in composable transformations. Forthic provides both the module system to wrap your code *and* the standard operations to manipulate it cleanly.
 
 Built with Category Theory in mind, proven through hundreds of engineering tools at LinkedIn, and powering new kinds of Agentic architectures.
 
-**[Why Forthic?](docs/why-forthic.md)** | **[Get Started](docs/getting-started.md)** 
+**[Why Forthic?](docs/why-forthic.md)** | **[Core Concepts](docs/core-concepts.md)** | **[Get Started](#getting-started)**
 
 ---
 
@@ -15,255 +15,297 @@ Built with Category Theory in mind, proven through hundreds of engineering tools
 Forthic makes your existing code **composable** by providing:
 
 1. **A simple module system** to wrap your code as Forthic words
-2. **Standard operations** for clean data transformations 
+2. **Standard operations** for clean data transformations
 3. **Stack-based composition** that makes building higher-level abstractions trivial
 
-**The Core Insight:**
-Solving software problems is fundamentally about **understanding relationships
-and applying transformations**. This is the essence of Category Theory, and
-something that Forthic was designed around. When you wrap your code in Forthic
-modules and compose transformations, you unlock systematic approaches to
-solving complex problems.
+**The Core Insight:** Solving software problems is fundamentally about **understanding relationships and applying transformations**.
+This is the essence of Category Theory--the concepts that that Forthic was designed around.
+
+Wrap code in Forthic words, compose them as transformations, and unlock systematic approaches to solving complex problems.
+
+**[Deep dive: Core Concepts →](docs/core-concepts.md)**
 
 ---
 
-## Quick Example: Wrapping Your Code
+## Quick Example
 
-### Creating a Forthic Module is Easy
+### Creating a Forthic Module
 
-Use decorators to expose your functions as Forthic words:
-
+**TypeScript:**
 ```typescript
-import { DecoratedModule, Word } from 'forthic-ts';
+import { DecoratedModule, Word } from '@forthix/forthic';
 
 export class AnalyticsModule extends DecoratedModule {
   constructor() {
     super("analytics");
   }
 
-  // Your existing business logic
-  calculateAverage(numbers: number[]): number {
+  @Word("( numbers:number[] -- avg:number )", "Calculate average")
+  async AVERAGE(numbers: number[]) {
     return numbers.reduce((a, b) => a + b, 0) / numbers.length;
   }
 
-  filterOutliers(numbers: number[], stdDevs: number = 2): number[] {
-    // ... your implementation
-    return filteredNumbers;
-  }
-
-  // Wrap them as Forthic words with the @Word decorator
-  @Word("( numbers:number[] -- avg:number )", "Calculate average of numbers")
-  async AVERAGE(numbers: number[]) {
-    return this.calculateAverage(numbers);
-  }
-
-  @Word("( numbers:number[] stdDevs:number -- filtered:number[] )", "Filter outliers")
+  @Word("( numbers:number[] stdDevs:number -- filtered:number[] )", "Filter outliers", "FILTER-OUTLIERS")
   async FILTER_OUTLIERS(numbers: number[], stdDevs: number) {
     return this.filterOutliers(numbers, stdDevs);
   }
 }
 ```
 
-**That's it!** Your code is now composable in Forthic.
+**Python:**
+```python
+from forthic import DecoratedModule, ForthicWord
 
-### Composing Transformations
+class AnalyticsModule(DecoratedModule):
+    @ForthicWord("( numbers -- avg )", "Calculate average")
+    async def AVERAGE(self, numbers):
+        return sum(numbers) / len(numbers)
+```
 
-Now build higher-level concepts through composition:
+**Ruby:**
+```ruby
+class AnalyticsModule < Forthic::Decorators::DecoratedModule
+  word :AVERAGE, "( numbers -- avg )", "Calculate average"
+  def AVERAGE(numbers)
+    numbers.sum.to_f / numbers.length
+  end
+end
+```
+
+### Using Your Module
 
 ```forthic
 ["analytics"] USE-MODULES
 
-# Simple composition - data flows left to right
+# Simple composition
 raw-data 2 FILTER-OUTLIERS AVERAGE
 
-# Define a higher-level word that represents a concept
+# Define reusable transformations
 : CLEAN-AVERAGE   2 FILTER-OUTLIERS AVERAGE ;
 
-# Now CLEAN-AVERAGE is a reusable transformation
+# Use it anywhere
 dataset-1 CLEAN-AVERAGE
 dataset-2 CLEAN-AVERAGE
-dataset-3 CLEAN-AVERAGE
-```
-
-### Using Standard Operations
-
-Forthic provides rich standard operations for clean data transformation:
-
-```forthic
-# Array operations
-[1 2 3 4 5]  '2 *' MAP                    # [2 4 6 8 10]
-[10 20 30]  2 TAKE                        # [10 20]
-["a" "b" "c"]  ["x" "y" "z"] ZIP          # [["a" "x"] ["b" "y"] ["c" "z"]]
-
-# Record operations
-[[.name "Alice"] [.age 30]] REC  "name" REC@    # "Alice"
-[[.x 1] [.y 2]] REC  [[.y 20] [.z 30]] REC_DEFAULTS   # {"x" 1 "y" 2 "z" 30}
-
-# String operations
-"hello world" UPPERCASE " " SPLIT          # ["HELLO" "WORLD"]
-"2025-01-15" "-" SPLIT                     # ["2025" "01" "15"]
-
-# Compose them together
-data-records
-  'DUP "score" REC@ 80 >' SELECT           # Filter records with score > 80
-  '"name" REC@' MAP                        # Extract names
-  ', ' JOIN                                # Join into comma-separated string
 ```
 
 ---
 
-## Composition + Standard Operations + Your Code
+## Runtimes
 
-### Building Higher-Level Concepts Through Composition
+Choose your language - all runtimes share the same Forthic semantics and can communicate via a gRPC-based multi-runtime architecture:
 
-```forthic
-["analytics" "reporting"] USE-MODULES
+| Runtime | Status | Repository | Best For | Multi-Runtime |
+|---------|--------|------------|----------|---------------|
+| **TypeScript** | ✅ Production | [forthic-ts](https://github.com/forthix/forthic-ts) | Node.js, browsers, web apps | gRPC, WebSocket |
+| **Ruby** | ✅ Production | [forthic-rb](https://github.com/forthix/forthic-rb) | Rails apps, web services | gRPC, WebSocket |
+| **Python** | 🚧 In Progress | [forthic-py](https://github.com/forthix/forthic-py) | Data science, ML, analytics | gRPC, WebSocket |
+| **Rust** | 🚧 In Progress | [forthic-rs](https://github.com/forthix/forthic-rs) | Performance, systems programming | gRPC (planned) |
+| **Java** | 📋 Planned | [forthic-java](https://github.com/forthix/forthic-java) | Enterprise applications | TBD |
 
-# Low-level transformations (your wrapped code)
-: RAW-METRICS   data-source FETCH-METRICS ;
-: CLEAN-METRICS   2 FILTER-OUTLIERS ;
-: SUMMARIZE   CALCULATE-STATS ;
 
-# Mid-level concepts (composing transformations)
-: PROCESSED-METRICS   RAW-METRICS CLEAN-METRICS SUMMARIZE ;
+## 🌐 Multi-Runtime Capabilities
 
-# High-level concepts (representing business logic)
-: MONTHLY-REPORT
-    PROCESSED-METRICS
-    reporting.FORMAT-FOR-EXECUTIVES
-    reporting.ADD-VISUALIZATIONS
-    reporting.EMAIL-TO-STAKEHOLDERS
-;
+Call code seamlessly across TypeScript, Python, Ruby, Rust, and more.
 
-# Now you can say what you mean
-Q1-DATA MONTHLY-REPORT
-Q2-DATA MONTHLY-REPORT
+```typescript
+// TypeScript calling Python's pandas
+import { GrpcClient, RemoteModule } from '@forthix/forthic/grpc';
+
+const pythonClient = new GrpcClient('localhost:50051');
+const pandas = new RemoteModule('pandas', pythonClient, 'python');
+
+await interp.run(`
+  ["pandas"] USE-MODULES
+  [records] DF-FROM-RECORDS DF-ANALYZE
+`);
 ```
 
-**This is the essence of Forthic:** Start with simple transformations, compose
-them into mid-level concepts, then compose those into high-level abstractions
-that directly express intent. The goal is to raise the level of abstraction to your
-problem so the problem and solution are ideally "the same".
+```ruby
+# Ruby calling TypeScript's fs module
+interp.run(%{
+  "localhost:50052" CONNECT-RUNTIME
+  ["fs"] USE-TS-MODULES
+  "/app/data" DIR-EXISTS?
+})
+```
 
-### Categorical Thinking: Inverses and Adjoints
+**Why multi-runtime?**
+- ✨ Use Python's data science libraries from TypeScript
+- ✨ Access Node.js's npm ecosystem from Ruby or Python
+- ✨ Call Rust's high-performance code from any runtime
+- ✨ Build polyglot systems without rewriting existing code using common, high-level Forthic
 
-Category Theory teaches us to think about solving problems by constructing **inverses** or **adjoints**.
-When we can find "inverses" to problems, we can apply them to yield solutions that are "correct"; when we
-can't find inverses, we try to find adjoints and either extend them to solve our problems or add information
-to our problem to "lift" it so we can find solutions.
+**[Learn more about multi-runtime →](docs/multi-runtime/)**
 
-**Categorical thinking encourages you to ask:**
-- How do transformations compose?
-- Can I think of what I want to do as a sequence of transformations?
-- If I can't construct a sequence that solves my problem, are there systematic ways to extend/modify the problem so it can be sovled?
-
+---
 ---
 
 ## Key Features
 
-### 1. Easy Module Creation
+### 1. **Category Theory Foundations**
 
-The `@Word` decorator makes wrapping your code trivial:
+Mathematical foundations provide systematic thinking:
+- **Morphisms** - Words are transformations
+- **Composition** - Concatenation is function composition
+- **Inverses/Adjoints** - Systematic problem-solving patterns
 
+**[Deep dive: Categorical Coding →](docs/philosophy/categorical-coding.md)**
+
+
+### 2. **Easy Module Creation**
+
+Wrap your existing code with simple decorators:
 ```typescript
-export class MyModule extends DecoratedModule {
-  constructor() {
-    super("mymodule");
-  }
-
-  @Word("( input:any -- output:any )", "Description of what this does")
-  async MY_WORD(input: any) {
-    // Your logic here - can call existing code
-    return yourExistingFunction(input);
-  }
-
-  @Word("( a:number b:number -- result:number )", "Add two numbers")
-  async ADD(a: number, b: number) {
-    return a + b;  // Trivial example, but you get the idea
-  }
-}
+@Word("( input -- output )", "Description")
+async MY_WORD(input: any) { return yourCode(input); }
 ```
 
-### 2. Standard Operations Included
+### 3. **Rich Standard Library**
 
-Forthic provides proven operations for clean data manipulation:
+Proven operations for clean data manipulation:
+- **array** - MAP, SELECT, SORT, GROUP-BY, ZIP, REDUCE (30+ operations)
+- **record** - REC@, <REC, MERGE, KEYS, VALUES
+- **string** - SPLIT, JOIN, UPPERCASE, LOWERCASE, TRIM
+- **math** - +, -, *, /, ROUND, ABS, MIN, MAX, AVERAGE
+- **datetime** - >DATE, >DATETIME, ADD-DAYS, FORMAT
+- **json** - >JSON, JSON>, JSON-PRETTIFY
+- **boolean** - ==, <, >, AND, OR, NOT, IN
 
-- **array**: MAP, SELECT, SORT, GROUP_BY, ZIP, REDUCE, FLATTEN, etc.
-- **record**: REC@, <REC, MERGE, KEYS, VALUES, INVERT_KEYS, etc.
-- **string**: SPLIT, JOIN, UPPERCASE, LOWERCASE, TRIM, REPLACE, etc.
-- **math**: +, -, *, /, ROUND, ABS, MIN, MAX, AVERAGE, etc.
-- **datetime**: >DATE, >DATETIME, ADD_DAYS, FORMAT, SUBTRACT_DAYS, etc.
-- **json**: >JSON, JSON>, JSON-PRETTIFY
-- **boolean**: ==, <, >, AND, OR, NOT, IN, etc.
+**[Module Reference →](docs/modules/)**
 
-These operations form the vocabulary for clean data transformation.
+### 4. **Multi-Runtime Execution** 🌐
 
-### 3. Transformation-Focused Design
+Call code across language boundaries seamlessly:
+- TypeScript ↔ Python ↔ Ruby ↔ Rust
+- Use the best library for each task
+- Build polyglot microservices
+- Migrate incrementally
 
-Forthic emphasizes **what transforms** rather than **how to control**. By
-focusing on transformations, composition and abstraction become a natural way
-to solve problems.
+**[Multi-Runtime Documentation →](docs/multi-runtime/)**
 
-### 4. Intentionally Incomplete = Infinitely Extensible
-Forthic is incomplete by design. It doesn't have branching or loops. It relies
-on its host runtime to provide these capabilities. Rather, it's entirely
-focused on solving problems through transformations.
+---
 
-This allows Forthic to operate at a high level and focus on abstraction rather than details. The higher
-the abstraction, the closer to the problem, and the easier it is to tweak and modify your code as 
-things change.
+## Getting Started
 
-### 5. Category Theory Foundations
+### Choose Your Runtime
 
-Forthic's design embraces Category Theory concepts:
-- **Morphisms** - Words are transformations between stack states
-- **Composition** - Concatenation is function composition
-- **Inverses/Adjoints** - Construct inverse operations to solve problems
+Start with the runtime that matches your project:
 
-This mathematical foundation provides systematic thinking about code organization.
+- **[TypeScript/JavaScript →](https://github.com/forthix/forthic-ts)** - `npm install @forthix/forthic`
+- **[Ruby →](https://github.com/forthix/forthic-rb)** - `gem install forthic`
+
+Each runtime repository includes:
+- Installation instructions
+- Getting started guide
+- Runtime-specific examples
+- API documentation
+
+### Learn Core Concepts
+
+- **[Core Concepts](docs/core-concepts.md)** - Module creation, composition, standard operations
+- **[Why Forthic?](docs/why-forthic.md)** - Philosophy and motivation
+- **[Getting Started Guide](docs/getting-started.md)** - Step-by-step tutorial
+
+### Explore Multi-Runtime
+
+- **[Multi-Runtime Overview](docs/multi-runtime/)** - Architecture and use cases
+- **[Multi-Runtime Examples](docs/multi-runtime/examples.md)** - Real-world scenarios
+- **[Integration Tests](https://github.com/forthix/forthic-integration-tests)** - Cross-runtime test suite
 
 ---
 
 ## Documentation
 
-### Core Concepts
+### Language & Concepts
 - **[Why Forthic?](docs/why-forthic.md)** - Philosophy and motivation
-- **[Language Guide](docs/language/)** - Syntax, stack operations, composition
+- **[Core Concepts](docs/core-concepts.md)** - Module system, composition, standard operations
+- **[Getting Started](docs/getting-started.md)** - Tutorial and first steps
+- **[Language Guide](docs/language/)** - Syntax, stack operations, semantics
+
+### Philosophy
+- **[Categorical Coding](docs/philosophy/categorical-coding.md)** - Category Theory foundations
 - **[History](HISTORY.md)** - From LinkedIn (1000+ apps) to open source
 
-### Standard Library Reference
+### Standard Library
 - **[Module Documentation](docs/modules/)** - Complete reference for all standard operations
-  - [array](docs/modules/standard_modules/array.md) - 30+ collection operations
+  - [array](docs/modules/standard_modules/array.md) - Collection operations
   - [record](docs/modules/standard_modules/record.md) - Object/dictionary manipulation
   - [string](docs/modules/standard_modules/string.md) - String transformation
   - [math](docs/modules/standard_modules/math.md) - Mathematical operations
   - [datetime](docs/modules/standard_modules/datetime.md) - Date/time handling
   - [json](docs/modules/standard_modules/json.md) - JSON serialization
   - [boolean](docs/modules/standard_modules/boolean.md) - Comparisons and logic
+  - [core](docs/modules/standard_modules/core.md) - Stack and interpreter operations
+  - [fs](docs/modules/standard_modules/fs.md) - File system operations (TypeScript)
 
-
----
-
-## Runtimes
-
-Forthic implementations across multiple environments:
-
-| Runtime | Status | Repository | Use Case |
-|---------|--------|------------|----------|
-| **TypeScript** | ✅ Active | [forthic-ts](https://github.com/forthix/forthic-ts) | Node.js, web apps, modern JS ecosystems |
+### Multi-Runtime
+- **[Multi-Runtime Overview](docs/multi-runtime/)** - Architecture, protocols, use cases
+- **[Multi-Runtime Examples](docs/multi-runtime/examples.md)** - Cross-runtime scenarios
+- **[gRPC Setup](docs/multi-runtime/grpc.md)** - Server-to-server communication
+- **[WebSocket Setup](docs/multi-runtime/websocket.md)** - Browser-compatible communication
+- **[Configuration](docs/multi-runtime/configuration.md)** - Connection management
 
 ---
 
-## Philosophy: Categorical Coding is a good way to solve software problems
+## Philosophy
 
 **Core beliefs:**
-- Software is fundamentally about transformations
-- Category Theory provides a framework to view code and systems in terms of relationships and transformations
+- Software is fundamentally about transformations and relationships
+- Category Theory provides a systematic framework for viewing code
 - Existing code should be composable, not rewritten
+- Multi-runtime execution unlocks the best of each language ecosystem
 
-See [Why Forthic?](docs/why-forthic.md) for complete philosophy and [History](HISTORY.md) for the origin story.
+**Categorical thinking encourages you to ask:**
+- How do transformations compose?
+- Can I think of what I want to do as a sequence of transformations?
+- If I can't construct a sequence that solves my problem, are there systematic ways to extend/modify the problem so it can be solved?
+
+**[Read the full philosophy →](docs/why-forthic.md)**
 
 ---
 
-**Forthic: Modules + Standard Operations + Composition = Powerful Abstractions**
+## Use Cases
 
+Forthic excels at:
+- **Data transformation pipelines** - Clean, composable ETL
+- **Analytics and reporting** - High-level abstractions over data
+- **Polyglot microservices** - Each service in its optimal language
+- **Agentic architectures** - Composable agent behaviors
+- **Domain-specific languages** - Wrapping business logic
+- **Gradual migration** - Incrementally modernize systems
+
+**[See multi-runtime examples →](docs/multi-runtime/examples.md)**
+
+---
+
+## Community & Support
+
+- **Main Repository:** [github.com/forthix/forthic](https://github.com/forthix/forthic)
+- **Discussions:** [GitHub Discussions](https://github.com/forthix/forthic/discussions)
+- **Issues:** Report bugs or request features in runtime-specific repos
+
+### Related Projects
+- **[forthic-integration-tests](https://github.com/forthix/forthic-integration-tests)** - Cross-runtime test suite
+- **[Forthix CLI](https://github.com/forthix/forthix-cli)** - Interactive REPL with live stack visualization
+
+---
+
+## Contributing
+
+We welcome contributions! Each runtime has its own contributing guide:
+
+- **[TypeScript Contributing](https://github.com/forthix/forthic-ts/blob/main/CONTRIBUTING.md)**
+- **[Python Contributing](https://github.com/forthix/forthic-py/blob/main/CONTRIBUTING.md)**
+- **[Ruby Contributing](https://github.com/forthix/forthic-rb/blob/main/CONTRIBUTING.md)**
+
+For general philosophy and community guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+---
+
+## License
+
+[BSD-2-Clause License](LICENSE) - Copyright 2024 LinkedIn Corporation. Copyright 2025 Forthix LLC.
+
+---
+
+**Forthic: Wrap. Compose. Abstract. Across Any Runtime.**

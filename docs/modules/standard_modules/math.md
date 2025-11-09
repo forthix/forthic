@@ -58,27 +58,11 @@ Add two numbers or sum array
 
 ---
 
-### >FIXED
+### ABS
 
-**Stack Effect:** `( num:number digits:number -- result:string )`
+**Stack Effect:** `( low:number high:number -- random:number )`
 
-Format number with fixed decimal places
-
----
-
-### >FLOAT
-
-**Stack Effect:** `( a:any -- float:number )`
-
-Convert to float
-
----
-
-### >INT
-
-**Stack Effect:** `( a:any -- int:number )`
-
-Convert to integer (returns length for arrays/objects, 0 for null)
+Generate random number in range [low, high)
 
 ---
 
@@ -180,6 +164,30 @@ Multiply two numbers or product of array
 
 ### ROUND
 
+**Stack Effect:** `( a:any -- int:number )`
+
+Convert to integer (returns length for arrays/objects, 0 for null)
+
+---
+
+### ROUND
+
+**Stack Effect:** `( a:any -- float:number )`
+
+Convert to float
+
+---
+
+### ROUND
+
+**Stack Effect:** `( num:number digits:number -- result:string )`
+
+Format number with fixed decimal places
+
+---
+
+### ROUND
+
 **Stack Effect:** `( num:number -- int:number )`
 
 Round to nearest integer
@@ -207,14 +215,6 @@ Subtract b from a
 **Stack Effect:** `( numbers:number[] -- sum:number )`
 
 Sum of array (explicit)
-
----
-
-### UNIFORM-RANDOM
-
-**Stack Effect:** `( low:number high:number -- random:number )`
-
-Generate random number in range [low, high)
 
 ---
 

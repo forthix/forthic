@@ -8,10 +8,10 @@ String manipulation and processing operations with regex and URL encoding suppor
 
 ## Categories
 
-- **Conversion**: >STR, URL_ENCODE, URL_DECODE
+- **Conversion**: >STR, URL-ENCODE, URL-DECODE
 - **Transform**: LOWERCASE, UPPERCASE, STRIP, ASCII
 - **Split/Join**: SPLIT, JOIN, CONCAT
-- **Pattern**: REPLACE, RE_MATCH, RE_MATCH_ALL, RE_MATCH_GROUP
+- **Pattern**: REPLACE, RE-MATCH, RE-MATCH-ALL, RE-MATCH-GROUP
 - **Constants**: /N, /R, /T
 
 ## Examples
@@ -91,7 +91,7 @@ Convert string to lowercase
 
 ---
 
-### RE_MATCH
+### RE-MATCH
 
 **Stack Effect:** `( string:string pattern:string -- match:any )`
 
@@ -99,7 +99,7 @@ Match string against regex pattern
 
 ---
 
-### RE_MATCH_ALL
+### RE-MATCH-ALL
 
 **Stack Effect:** `( string:string pattern:string -- matches:any[] )`
 
@@ -107,7 +107,7 @@ Find all regex matches in string
 
 ---
 
-### RE_MATCH_GROUP
+### RE-MATCH-GROUP
 
 **Stack Effect:** `( match:any num:number -- result:any )`
 
@@ -147,7 +147,7 @@ Convert string to uppercase
 
 ---
 
-### URL_DECODE
+### URL-DECODE
 
 **Stack Effect:** `( urlencoded:string -- decoded:string )`
 
@@ -155,7 +155,7 @@ URL decode string
 
 ---
 
-### URL_ENCODE
+### URL-ENCODE
 
 **Stack Effect:** `( str:string -- encoded:string )`
 

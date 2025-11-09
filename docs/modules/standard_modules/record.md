@@ -12,15 +12,6 @@ Record (object/dictionary) manipulation operations for working with key-value da
 - **Transform**: RELABEL, INVERT-KEYS, REC-DEFAULTS, <DEL
 - **Access**: KEYS, VALUES
 
-## Examples
-
-```forthic
-[["name" "Alice"] ["age" 30]] REC
-{name: "Alice", age: 30} "name" REC@
-[{x: 1} {x: 2}] "x" |REC@
-{a: 1, b: 2} KEYS
-```
-
 ## Words
 
 ### <DEL
@@ -47,7 +38,7 @@ Map REC@ over array of records
 
 ---
 
-### INVERT_KEYS
+### INVERT-KEYS
 
 **Stack Effect:** `( record:any -- inverted:any )`
 
@@ -71,7 +62,7 @@ Create record from [[key, val], ...] pairs
 
 ---
 
-### REC_DEFAULTS
+### REC-DEFAULTS
 
 **Stack Effect:** `( record:any key_vals:any[] -- record:any )`
 

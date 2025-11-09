@@ -4,7 +4,7 @@
 
 Array and collection operations for manipulating arrays and records.
 
-**30 words**
+**29 words**
 
 ## Categories
 
@@ -13,7 +13,7 @@ Array and collection operations for manipulating arrays and records.
 - **Combine**: APPEND, ZIP, ZIP_WITH, CONCAT
 - **Filter**: SELECT, UNIQUE, DIFFERENCE, INTERSECTION, UNION
 - **Sort**: SORT, SHUFFLE, ROTATE
-- **Group**: BY_FIELD, GROUP_BY_FIELD, GROUP_BY, GROUPS_OF
+- **Group**: BY_FIELD, GROUP-BY-FIELD, GROUP_BY, GROUPS_OF
 - **Utility**: <REPEAT, FOREACH, REDUCE, UNPACK, FLATTEN
 
 ## Options
@@ -53,7 +53,7 @@ Append item to array or add key-value to record
 
 ---
 
-### BY_FIELD
+### BY-FIELD
 
 **Stack Effect:** `( container:any[] field:string -- indexed:any )`
 
@@ -93,15 +93,15 @@ Execute forthic for each item. Options: with_key (bool), push_error (bool). Exam
 
 ---
 
-### GROUP_BY
+### GROUP-BY
 
 **Stack Effect:** `( items:any forthic:string [options:WordOptions] -- grouped:any )`
 
-Group items by function result. Options: with_key (bool). Example: [5 15 25] '10 /' [.with_key TRUE] ~> GROUP_BY
+Group items by function result. Options: with_key (bool). Example: [5 15 25] '10 /' [.with_key TRUE] ~> GROUP-BY
 
 ---
 
-### GROUP_BY_FIELD
+### GROUP-BY-FIELD
 
 **Stack Effect:** `( container:any[] field:string -- grouped:any )`
 
@@ -109,7 +109,7 @@ Group records by field value
 
 ---
 
-### GROUPS_OF
+### GROUPS-OF
 
 **Stack Effect:** `( container:any[] n:number -- groups:any[] )`
 
@@ -133,7 +133,7 @@ Set intersection between two containers
 
 ---
 
-### KEY_OF
+### KEY-OF
 
 **Stack Effect:** `( container:any value:any -- key:any )`
 
@@ -221,14 +221,6 @@ Extract slice from array or record
 
 ---
 
-### SORT
-
-**Stack Effect:** `( container:any[] [options:WordOptions] -- array:any[] )`
-
-Sort container. Options: comparator (string or function). Example: [3 1 4] [.comparator "-1 *"] ~> SORT
-
----
-
 ### TAKE
 
 **Stack Effect:** `( container:any[] n:number [options:WordOptions] -- result:any[] )`
@@ -269,7 +261,7 @@ Zip two arrays into array of pairs
 
 ---
 
-### ZIP_WITH
+### ZIP-WITH
 
 **Stack Effect:** `( container1:any[] container2:any[] forthic:string -- result:any[] )`
 

@@ -4,7 +4,7 @@
 
 Comparison, logic, and membership operations for boolean values and conditions.
 
-**15 words**
+**14 words**
 
 ## Categories
 
@@ -69,14 +69,6 @@ Greater than
 **Stack Effect:** `( a:any b:any -- greater_equal:boolean )`
 
 Greater than or equal
-
----
-
-### >BOOL
-
-**Stack Effect:** `( a:any -- bool:boolean )`
-
-Convert to boolean (JavaScript truthiness)
 
 ---
 

@@ -315,11 +315,10 @@ It's not a trend or a fad—it's mathematical foundation for reasoning about com
 
 **Forthic makes those ideas practical** for modern software development.
 
-Whether Forthic specifically succeeds or not, the ideas matter:
 - Thinking in transformations
 - Systematic composition
 - Leveraging existing code
 - Building higher-level abstractions
 
-**That's why Forthic exists.**
+That's why Forthic exists.
 

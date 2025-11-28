@@ -97,8 +97,8 @@ Choose your language - all runtimes share the same Forthic semantics and can com
 | Runtime | Status | Repository | Best For | Multi-Runtime |
 |---------|--------|------------|----------|---------------|
 | **TypeScript** | ✅ Production | [forthic-ts](https://github.com/forthix/forthic-ts) | Node.js, browsers, web apps | gRPC, WebSocket |
+| **Python** | ✅ Production | [forthic-py](https://github.com/forthix/forthic-py) | Data science, ML, analytics | gRPC, WebSocket |
 | **Ruby** | ✅ Production | [forthic-rb](https://github.com/forthix/forthic-rb) | Rails apps, web services | gRPC, WebSocket |
-| **Python** | 🚧 In Progress | [forthic-py](https://github.com/forthix/forthic-py) | Data science, ML, analytics | gRPC, WebSocket |
 | **Rust** | 🚧 In Progress | [forthic-rs](https://github.com/forthix/forthic-rs) | Performance, systems programming | gRPC (planned) |
 | **Java** | 📋 Planned | [forthic-java](https://github.com/forthix/forthic-java) | Enterprise applications | TBD |
 
@@ -192,6 +192,7 @@ Call code across language boundaries seamlessly:
 Start with the runtime that matches your project:
 
 - **[TypeScript/JavaScript →](https://github.com/forthix/forthic-ts)** - `npm install @forthix/forthic`
+- **[Python →](https://github.com/forthix/forthic-py)** - `pip install forthic-py`
 - **[Ruby →](https://github.com/forthix/forthic-rb)** - `gem install forthic`
 
 Each runtime repository includes:

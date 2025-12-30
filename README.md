@@ -99,8 +99,12 @@ Choose your language - all runtimes share the same Forthic semantics and can com
 | **TypeScript** | ✅ Production | [forthic-ts](https://github.com/forthix/forthic-ts) | Node.js, browsers, web apps | gRPC, WebSocket |
 | **Python** | ✅ Production | [forthic-py](https://github.com/forthix/forthic-py) | Data science, ML, analytics | gRPC, WebSocket |
 | **Ruby** | ✅ Production | [forthic-rb](https://github.com/forthix/forthic-rb) | Rails apps, web services | gRPC, WebSocket |
-| **Rust** | 🚧 In Progress | [forthic-rs](https://github.com/forthix/forthic-rs) | Performance, systems programming | gRPC (planned) |
-| **Java** | 📋 Planned | [forthic-java](https://github.com/forthix/forthic-java) | Enterprise applications | TBD |
+| **Rust** | ✅ Production | [forthic-rs](https://github.com/forthix/forthic-rs) | Performance, systems programming | gRPC (planned) |
+| **Go** | ✅ Production | [forthic-go](https://github.com/forthix/forthic-go) | Performance, systems programming | gRPC |
+| **zig** | ✅ Production | [forthic-zig](https://github.com/forthix/forthic-zig) | Performance, utilities | gRPC |
+| **Erlang** | ✅ Production | [forthic-erl](https://github.com/forthix/forthic-erl) | Performance, systems programming | gRPC (planned) |
+| **.NET** | ✅ Production | [forthic-dotnet](https://github.com/forthix/forthic-dotnet) | Enterprise applications | gRPC (planned) |
+| **Java** | 📋 Planned | [forthic-java](https://github.com/forthix/forthic-java) | Enterprise applications | gRPC (planned) |
 
 
 ## 🌐 Multi-Runtime Capabilities

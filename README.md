@@ -6,7 +6,7 @@ A stack-based, concatenative language for wrapping existing code in composable t
 
 Built with Category Theory in mind, proven through hundreds of engineering tools at LinkedIn, and powering new kinds of Agentic architectures.
 
-**[Why Forthic?](docs/why-forthic.md)** | **[Core Concepts](docs/core-concepts.md)** | **[Get Started](#getting-started)**
+**[Learn at forthix.com](https://forthix.com)** | **[Why Forthic?](docs/why-forthic.md)** | **[Core Concepts](docs/core-concepts.md)** | **[Get Started](#getting-started)**
 
 ---
 
@@ -153,6 +153,8 @@ Mathematical foundations provide systematic thinking:
 - **Composition** - Concatenation is function composition
 - **Inverses/Adjoints** - Systematic problem-solving patterns
 
+**[Learn about Categorical Coding →](https://forthix.com/blog/category-theory-for-the-rest-of-us-coders)**
+
 **[Deep dive: Categorical Coding →](docs/philosophy/categorical-coding.md)**
 
 
@@ -186,6 +188,17 @@ Call code across language boundaries seamlessly:
 - Migrate incrementally
 
 **[Multi-Runtime Documentation →](docs/multi-runtime/)**
+
+---
+
+## Learn More
+
+Visit **[forthix.com](https://forthix.com)** to learn about Forthic and Categorical Coding:
+- **[Category Theory for Coders](https://forthix.com/blog/category-theory-for-the-rest-of-us-coders)** - Understand the foundations of Categorical Coding
+- Interactive tutorials and real-world examples
+- Community showcase and case studies
+
+This repository contains the technical documentation, API references, and source code.
 
 ---
 
@@ -264,6 +277,8 @@ Each runtime repository includes:
 - How do transformations compose?
 - Can I think of what I want to do as a sequence of transformations?
 - If I can't construct a sequence that solves my problem, are there systematic ways to extend/modify the problem so it can be solved?
+
+**[Learn about Categorical Coding →](https://forthix.com/blog/category-theory-for-the-rest-of-us-coders)**
 
 **[Read the full philosophy →](docs/why-forthic.md)**
 

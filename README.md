@@ -104,7 +104,7 @@ Choose your language - all runtimes share the same Forthic semantics and can com
 | **zig** | ✅ Production | [forthic-zig](https://github.com/forthix/forthic-zig) | Performance, utilities | gRPC |
 | **Erlang** | ✅ Production | [forthic-erl](https://github.com/forthix/forthic-erl) | Performance, systems programming | gRPC (planned) |
 | **.NET** | ✅ Production | [forthic-dotnet](https://github.com/forthix/forthic-dotnet) | Enterprise applications | gRPC (planned) |
-| **Java** | 📋 Planned | [forthic-java](https://github.com/forthix/forthic-java) | Enterprise applications | gRPC (planned) |
+| **Java** | ✅ Production | [forthic-java](https://github.com/forthix/forthic-java) | Enterprise applications | gRPC (planned) |
 
 
 ## 🌐 Multi-Runtime Capabilities
